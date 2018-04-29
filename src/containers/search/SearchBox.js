@@ -6,6 +6,10 @@ import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 import { CircularProgress } from 'material-ui/Progress';
 import Card, { CardContent } from 'material-ui/Card';
+import 'react-dates/initialize';
+import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
+import 'react-dates/lib/css/_datepicker.css';
+
 
 
 const Title = styled.h3`
@@ -44,6 +48,10 @@ const styles = {
 };
 
 class SearchBox extends Component {
+  state = {
+    startDate: null,
+    endDate: null
+  }
   render() {
     const { loading } = this.props;
     const { card, button } = this.props.classes;
@@ -71,6 +79,16 @@ class SearchBox extends Component {
               label="Localização"
               value="Rio de Janeiro, RJ"
               margin="normal"
+            />
+            <DateRangePicker
+              startDate={this.state.startDate} // momentPropTypes.momentObj or null,
+              startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
+              endDate={this.state.endDate} // momentPropTypes.momentObj or null,
+              endDateId="your_unique_end_date_id"
+              isOutsideRange={() => false}
+              onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })} // PropTypes.func.isRequired,
+              focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
+              onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
             />
             <Button
               className={button}
