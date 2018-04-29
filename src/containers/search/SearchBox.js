@@ -40,7 +40,7 @@ const styles = {
     maxWidth: 760,
     margin: '24px auto 0',
     position: 'relative',
-    minHeight: 600,
+    minHeight: 450,
   },
   button: {
     position: 'absolute',

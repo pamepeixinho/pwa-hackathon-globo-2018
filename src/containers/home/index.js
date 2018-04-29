@@ -36,10 +36,13 @@ class Home extends Component {
               titleLabel={el.titleLabel}
               actionLabel={el.actionLabel}
               onAddIconClick={el.onAddIconClick}
+              withPlus={el.withPlus}
             />
           )}
           <ProductCard
             titleLabel="Apuração de notícias"
+            withPlus={false}
+            actionLabel="Buscar"
             onAddIconClick={() => { history.push('/search') }}
           />
         </CardWrapper>

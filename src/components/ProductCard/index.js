@@ -38,7 +38,7 @@ const styles = {
 
 class ProductCard extends Component {
   render() {
-    const { classes, actionLabel, titleLabel, onAddIconClick } = this.props;
+    const { classes, actionLabel, titleLabel, onAddIconClick, withPlus } = this.props;
     return (
       <Card className={classes.root}>
         <CardContent>
@@ -46,15 +46,15 @@ class ProductCard extends Component {
             <Typography className={classes.title} color="textSecondary">
               {titleLabel}
             </Typography>
-            <IconButton className={classes.button} onClick={onAddIconClick}>
+            { withPlus && <IconButton className={classes.button}>
               <div>+</div>
-            </IconButton>
+            </IconButton> }
           </Header>
           <LineSeparator/>
         </CardContent>
         { actionLabel && 
           <CardActions className={classes.actions}>
-            <Button size="small">{actionLabel}</Button>
+            <Button size="small" onClick={onAddIconClick}>{actionLabel}</Button>
           </CardActions>
         }
       </Card>
