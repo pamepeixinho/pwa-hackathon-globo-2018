@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { Link } from "react-router-dom";
 
 import TextField from 'material-ui/TextField';
-
+import Button from 'material-ui/Button';
+import { search } from '../../api/search';
 
 const Wrapper = styled.div`
 `;
@@ -11,10 +11,16 @@ const Wrapper = styled.div`
 class Search extends Component {
   state = {
     searchText: '',
+    result: {},
   }
 
   handleSearchText = (event) => {
     this.setState({ searchText: event.target.value });
+  }
+
+  handleFinalSearch = async () => {
+    const result = await search(this.state.searchText)
+    this.setState({ result });
   }
 
   render() {
@@ -30,7 +36,9 @@ class Search extends Component {
           onChange={this.handleSearchText}
           margin="normal"
         />
-        <Link to="results"> GO </Link>
+        <Button onClick={this.handleFinalSearch}>
+          Go
+        </Button>
       </Wrapper>
     );
   }
