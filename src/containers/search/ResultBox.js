@@ -37,7 +37,7 @@ class ResultBox extends Component {
               return (
                 <TableRow key={result.title}>
                   <TableCell style={{ maxWidth: 100 }}>{result.title}</TableCell>
-                  <TableCell style={{ maxWidth: 180 }}>{result.href}</TableCell>
+                  <TableCell style={{ maxWidth: 180 }}><a href={result.href}> {result.domainLabel} </a> </TableCell>
                   <TableCell>{result.date}</TableCell>
                 </TableRow>
               );
