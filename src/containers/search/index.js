@@ -42,6 +42,8 @@ class Search extends Component {
     this.setState({ loading: true });
     const results = await search(this.state.searchText)
     this.setState({ results, loading: false });
+    /* <input type='file' onChange={this.fileSelectedHandler}> */
+    /* <button onClick={this.fileUploadHandler}>Upload</button> */
   }
 
   render() {
@@ -49,9 +51,6 @@ class Search extends Component {
     return (
       <Wrapper>
         <Header />
-        <input type='file' onChange={this.fileSelectedHandler}>
-        </input>
-        <button onClick={this.fileUploadHandler}>Upload</button>
         <SideMenu />
         {!(results && results.length > 0) ?
           <SearchBox
@@ -61,7 +60,7 @@ class Search extends Component {
             loading={this.state.loading}
           />
           :
-          <Results results={results} />
+          <Results official={results} others={results} />
         }
       </Wrapper>
     );

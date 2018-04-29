@@ -11,7 +11,6 @@ const SideWrapper = styled.div`
 `;
 
 const Header = styled.div`
-  width: 100%;
   height: 40px;
   background-color: rgb(66,66,66);
   padding: 15px 0 0 22px;

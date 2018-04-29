@@ -1,29 +1,54 @@
 import React, { Component } from 'react';
 
+import { withStyles } from 'material-ui/styles';
+import Table, { TableCell, TableRow, TableBody, TableHead } from 'material-ui/Table';
 import Paper from 'material-ui/Paper';
-import Table, { TableCell, TableRow } from 'material-ui/Table';
+
+const styles = {
+  root: {
+    width: 'calc(100% - 200px)',
+    marginTop: '16px',
+    overflowX: 'auto',
+    margin: '0 auto',
+  },
+  table: {
+    width: '100%',
+  },
+  head: {
+    backgroundColor: '#FAFAFA',
+  },
+};
 
 class ResultBox extends Component {
   render() {
-    const { results } = this.props;
+    const { results, title } = this.props;
     return (
-      <React.fragment>
-        <div>Test</div>
-          {results.map((result) => {
-            return (
-              <TableRow key={result.title}>
-                <TableCell>{result.title}</TableCell>
-                <TableCell>{result.href}</TableCell>
-                <TableCell>{result.desc}</TableCell>
-                <TableCell>{result.date}</TableCell>
-              </TableRow>
-            );
-          })}
-      </React.fragment>
+      <Paper className={this.props.classes.root}>
+        <Table className={this.props.classes.table}>
+          <TableHead className={this.props.classes.head}>
+            <TableRow>
+              <TableCell>Título</TableCell>
+              <TableCell>Fonte</TableCell>
+              <TableCell>Data de Criação</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {results.map((result) => {
+              return (
+                <TableRow key={result.title}>
+                  <TableCell style={{ maxWidth: 100 }}>{result.title}</TableCell>
+                  <TableCell style={{ maxWidth: 180 }}>{result.href}</TableCell>
+                  <TableCell>{result.date}</TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </Paper>
     );
   }
 }
 
-export default ResultBox;
+export default withStyles(styles)(ResultBox);
 
 
