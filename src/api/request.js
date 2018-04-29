@@ -22,13 +22,10 @@ function parseJSON(response) {
  * @return {object|undefined} Returns either the response, or throws an error
  */
 function checkStatus(response) {
-  debugger;
   if (response.status >= 200 && response.status < 300) {
-    debugger;
     return response;
   }
 
-  debugger;
   const error = new Error(response.statusText);
   error.response = response;
   throw error;
@@ -50,7 +47,6 @@ export default function request(url, options) {
 
 export const post = (url, body) => {
   const options = buildPost(body);
-  debugger;
   return request(url, options);
 }
 

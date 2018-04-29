@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
+import Card, { CardActions, CardContent } from 'material-ui/Card';
+
 const Wrapper = styled.div`
-  background: red;
 `;
 
-class Results extends Component {
+class ProductCard extends Component {
   render() {
     return (
       <Wrapper>
-        <header>
-          <h1>Welcome to results</h1>
-        </header>
+          <div>teste</div>
       </Wrapper>
     );
   }
 }
 
-export default Results;
+export default ProductCard;

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import Table, { TableCell, TableRow } from 'material-ui/Table';
 
-import TextField from 'material-ui/TextField';
-import Button from 'material-ui/Button';
 import { search } from '../../api/search';
+import SearchBox from './SearchBox';
 
 const Wrapper = styled.div`
 `;
@@ -11,7 +11,7 @@ const Wrapper = styled.div`
 class Search extends Component {
   state = {
     searchText: '',
-    result: {},
+    results: [],
   }
 
   handleSearchText = (event) => {
@@ -19,26 +19,35 @@ class Search extends Component {
   }
 
   handleFinalSearch = async () => {
-    const result = await search(this.state.searchText)
-    this.setState({ result });
+    const results = await search(this.state.searchText)
+    this.setState({ results });
+    console.log(results);
   }
 
   render() {
+    const { results } = this.state;
     return (
       <Wrapper>
-        <header>
-          <h1>ApuraNews</h1>
-        </header>
-        <TextField
-          id="searchText"
-          label="Pesquisa"
-          value={this.state.searchText}
-          onChange={this.handleSearchText}
-          margin="normal"
+        <SearchBox
+          searchText={this.state.searchText}
+          handleSearchText={this.handleSearchText}
+          handleFinalSearch={this.handleFinalSearch}
         />
-        <Button onClick={this.handleFinalSearch}>
-          Go
-        </Button>
+
+        <Table>
+          { results && results.length > 0 &&
+            results.map((result) => {
+              return (
+                <TableRow key={result.title}>
+                  <TableCell>{result.title}</TableCell>
+                  <TableCell>{result.href}</TableCell>
+                  <TableCell>{result.desc}</TableCell>
+                  <TableCell>{result.date}</TableCell>
+                </TableRow>
+              );
+            })
+          }
+        </Table>
       </Wrapper>
     );
   }
