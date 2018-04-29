@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { withStyles } from 'material-ui/styles';
 import Table, { TableCell, TableRow, TableBody, TableHead } from 'material-ui/Table';
 import Paper from 'material-ui/Paper';
+import moment from 'moment';
 
 const styles = {
   root: {
@@ -38,7 +39,7 @@ class ResultBox extends Component {
                 <TableRow key={result.title}>
                   <TableCell style={{ maxWidth: 100 }}>{result.title}</TableCell>
                   <TableCell style={{ maxWidth: 180 }}><a href={result.href}> {result.domainLabel} </a> </TableCell>
-                  <TableCell>{result.date}</TableCell>
+                  <TableCell>{moment(result.date).format('LL')}</TableCell>
                 </TableRow>
               );
             })}

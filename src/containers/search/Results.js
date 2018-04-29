@@ -34,7 +34,7 @@ class Results extends Component {
     window.location.reload();
   }
   render() {
-    const { official, others } = this.props;
+    const { verified, nonVerified } = this.props;
     const text = '> Apuração de Notícias';
     return (
       <Root>
@@ -51,11 +51,11 @@ class Results extends Component {
             <LineSeparator />
           </div>
           <h3 style={{ paddingLeft: 100 }} >Fontes Oficiais</h3>
-          <ResultBox results={official} />
+          <ResultBox results={verified} />
           <br />
           <br />
-          <h4 style={{ paddingLeft: 100 }} >Fontes de alta probabilidade de confiabilidade</h4>
-          <ResultBox results={others} />
+          <h4 style={{ paddingLeft: 100 }} >Fontes não verificadas</h4>
+          <ResultBox results={nonVerified} />
         </Paper>
       </Root>
     );

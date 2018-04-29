@@ -15,7 +15,9 @@ class Search extends Component {
   state = {
     selectedFile: null,
     searchText: '',
-    results: [],
+    verified: [],
+    nonVerified: [],
+    blacklist: [],
     loading: false,
   }
 
@@ -40,16 +42,17 @@ class Search extends Component {
     this.setState({ loading: true });
     this.fileUploadHandler();
     const results = await search(this.state.searchText)
-    this.setState({ results, loading: false });
+    const {verified, nonVerified, blacklist} = results;
+    this.setState({ verified, nonVerified, blacklist, loading: false });
   }
 
   render() {
-    const { results } = this.state;
+    const { verified, nonVerified, blacklist } = this.state;
     return (
       <div>
         <Header />
         <SideMenu />
-        {!(results && results.length > 0) ?
+        {!(verified && verified.length > 0) ?
           <SearchBox
             searchText={this.state.searchText}
             handleSearchText={this.handleSearchText}
@@ -58,7 +61,7 @@ class Search extends Component {
             fileSelectedHandler={this.fileSelectedHandler}
           />
           :
-          <Results official={results} others={results} />
+          <Results verified={verified} nonVerified={nonVerified}  blacklist={blacklist}/>
         }
       </div>
     );
