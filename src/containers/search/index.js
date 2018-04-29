@@ -9,20 +9,24 @@ const Wrapper = styled.div`
 `;
 
 class Search extends Component {
-  handleSearchText = () => {
-    console.log('skndkasndkan');
+  state = {
+    searchText: '',
+  }
+
+  handleSearchText = (event) => {
+    this.setState({ searchText: event.target.value });
   }
 
   render() {
     return (
       <Wrapper>
         <header>
-          <h1>Welcome to React</h1>
+          <h1>ApuraNews</h1>
         </header>
         <TextField
           id="searchText"
-          label="Search Text"
-          value={""}
+          label="Pesquisa"
+          value={this.state.searchText}
           onChange={this.handleSearchText}
           margin="normal"
         />
