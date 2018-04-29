@@ -27,7 +27,13 @@ const Wrapper = styled.div`
 `;
 
 const Input = styled.input`
-  width: 160px;
+  width: 190px;
+  margin-left: 10px;
+`;
+
+const Div = styled.div`
+  float: right;
+  margin-left: 10px;
 `;
 
 const styles = {
@@ -35,6 +41,7 @@ const styles = {
     maxWidth: 760,
     margin: '24px auto 0',
     position: 'relative',
+    minHeight: 600,
   },
   button: {
     position: 'absolute',
@@ -43,15 +50,21 @@ const styles = {
   },
   textField: {
     marginRight: 10,
-    width: 'calc(100% - 180px)',
+    width: 'calc(100% - 350px)',
   },
 };
+
+const Test = styled.p`
+  margin-bottom: 16px;
+`;
+
 
 class SearchBox extends Component {
   state = {
     startDate: null,
     endDate: null
   }
+
   render() {
     const { loading } = this.props;
     const { card, button } = this.props.classes;
@@ -71,15 +84,11 @@ class SearchBox extends Component {
               onChange={this.props.handleSearchText}
               className={this.props.classes.textField}
               margin="normal"
+              style={{ marginTop: 10, marginLeft: 10 }}
             />
+            ou
             <Input type='file' onChange={this.props.fileSelectedHandler} />
-            <p>Filtros adicionais</p>
-            <TextField
-              id="cidade"
-              label="Localização"
-              value="Rio de Janeiro, RJ"
-              margin="normal"
-            />
+            <Test>Filtros adicionais</Test>
             <DateRangePicker
               startDate={this.state.startDate} // momentPropTypes.momentObj or null,
               startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
@@ -90,6 +99,15 @@ class SearchBox extends Component {
               focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
               onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
             />
+            <Div>
+              <TextField
+                id="cidade"
+                label="Localização"
+                value="Rio de Janeiro, RJ"
+                margin="normal"
+                className={this.props.classes.text}
+              />
+            </Div>
             <Button
               className={button}
               onClick={this.props.handleFinalSearch}

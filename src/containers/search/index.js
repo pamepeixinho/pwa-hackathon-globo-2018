@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import styled from 'styled-components';
 import axios from 'axios';
 import 'react-dates/initialize';
 import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
@@ -11,7 +10,7 @@ import Header from '../../components/Header';
 import SideMenu from  '../../components/SideMenu';
 import Results from './Results';
 
-const EPImage = 'https://backend-bbb.herokuapp.com/search/image';
+const EPImage = 'https://backend-bbb.herokuapp.com/search/image/by-domain';
 
 
 class Search extends Component {
@@ -23,7 +22,8 @@ class Search extends Component {
     blacklist: [],
     loading: false,
     startDate: null,
-    endDate: null
+    endDate: null,
+    isImage: false,
   }
 
   fileSelectedHandler = event => {
@@ -32,11 +32,11 @@ class Search extends Component {
     })
   }
   
-  fileUploadHandler = () => {
+  fileUploadHandler = async () => {
     const fd = new FormData();
-    fd.append('dataFile', this.state.selectedFile,'dataFile');
-    axios.post(EPImage, fd)
-      .then((res) => console.log(res));
+    fd.append('dataFile', this.state.selectedFile, 'dataFile');
+    await axios.post(EPImage, fd)
+      .then((res) => this.handle(res.data));
   }
 
   handleSearchText = (event) => {
@@ -45,27 +45,26 @@ class Search extends Component {
 
   handleFinalSearch = async () => {
     this.setState({ loading: true });
-    this.fileUploadHandler();
-    const results = await search(this.state.searchText)
-    const {verified, nonVerified, blacklist} = results;
-    this.setState({ verified, nonVerified, blacklist, loading: false });
+    if (this.state.selectedFile !== null) {
+      this.setState({ isImage: true });
+      this.fileUploadHandler();
+    } else {
+      const results = await search(this.state.searchText)
+      this.setState({ isImage: false });
+      this.handle(results);
+    }
   }
 
+  handle = (results, isImage) => {
+    const { verified, nonVerified, blacklist } = results;
+    this.setState({ verified, nonVerified, blacklist, loading: false });
+  } 
+
   render() {
-    const { verified, nonVerified, blacklist } = this.state;
+    const { verified, nonVerified, blacklist, isImage } = this.state;
     return (
       <div>
         <Header />
-        <DateRangePicker
-          startDate={this.state.startDate} // momentPropTypes.momentObj or null,
-          startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
-          isOutsideRange={() => false}
-  endDate={this.state.endDate} // momentPropTypes.momentObj or null,
-  endDateId="your_unique_end_date_id" // PropTypes.string.isRequired,
-  onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })} // PropTypes.func.isRequired,
-  focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
-  onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
-        />
         <SideMenu />
         {!(verified && verified.length > 0) ?
           <SearchBox
@@ -76,7 +75,7 @@ class Search extends Component {
             fileSelectedHandler={this.fileSelectedHandler}
           />
           :
-          <Results verified={verified} nonVerified={nonVerified}  blacklist={blacklist}/>
+          <Results verified={verified} nonVerified={nonVerified} isImage={isImage} blacklist={blacklist} />
         }
       </div>
     );

@@ -33,8 +33,9 @@ class Results extends Component {
   handle = () => {
     window.location.reload();
   }
+
   render() {
-    const { verified, nonVerified } = this.props;
+    const { verified, nonVerified, isImage } = this.props;
     const text = '> Apuração de Notícias';
     return (
       <Root>
@@ -51,11 +52,11 @@ class Results extends Component {
             <LineSeparator />
           </div>
           <h3 style={{ paddingLeft: 100 }} >Fontes Oficiais</h3>
-          <ResultBox results={verified} />
+          <ResultBox results={verified} isImage={isImage} />
           <br />
           <br />
           <h4 style={{ paddingLeft: 100 }} >Fontes não verificadas</h4>
-          <ResultBox results={nonVerified} />
+          <ResultBox results={nonVerified} isImage={isImage} />
         </Paper>
       </Root>
     );

@@ -22,23 +22,30 @@ const styles = {
 
 class ResultBox extends Component {
   render() {
-    const { results, title } = this.props;
+    const { results, isImage } = this.props;
+    debugger
     return (
       <Paper className={this.props.classes.root}>
         <Table className={this.props.classes.table}>
           <TableHead className={this.props.classes.head}>
             <TableRow>
-              <TableCell>Título</TableCell>
+              <TableCell>{ isImage ? 'Imagem' : 'Título' }</TableCell>
               <TableCell>Fonte</TableCell>
-              <TableCell>Data de Criação</TableCell>
+              <TableCell>Data de Publicação</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {results.map((result) => {
               return (
                 <TableRow key={result.title}>
-                  <TableCell style={{ maxWidth: 100 }}>{result.title}</TableCell>
-                  <TableCell style={{ maxWidth: 180 }}><a href={result.href}> {result.domainLabel} </a> </TableCell>
+                  <TableCell style={{ maxWidth: 100 }}>
+                    {isImage ? <img src={result.href} alt="imgzinha" /> : result.title}
+                  </TableCell>
+                  <TableCell style={{ maxWidth: 180 }}>
+                    <a href={isImage ? result.backlink : result.href}>
+                      {isImage? result.backlink : result.domainLabel}
+                    </a>
+                  </TableCell>
                   <TableCell>{moment(result.date).format('LL')}</TableCell>
                 </TableRow>
               );
