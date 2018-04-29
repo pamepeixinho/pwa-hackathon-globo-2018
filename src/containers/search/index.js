@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 import axios from 'axios';
-import Table, { TableCell, TableRow } from 'material-ui/Table';
 
 import { search } from '../../api/search';
 import SearchBox from './SearchBox';
@@ -10,8 +9,7 @@ import SideMenu from  '../../components/SideMenu';
 import Results from './Results';
 
 const EPImage = 'https://backend-bbb.herokuapp.com/search/image';
-const Wrapper = styled.div`
-`;
+
 
 class Search extends Component {
   state = {
@@ -40,16 +38,15 @@ class Search extends Component {
 
   handleFinalSearch = async () => {
     this.setState({ loading: true });
+    this.fileUploadHandler();
     const results = await search(this.state.searchText)
     this.setState({ results, loading: false });
-    /* <input type='file' onChange={this.fileSelectedHandler}> */
-    /* <button onClick={this.fileUploadHandler}>Upload</button> */
   }
 
   render() {
     const { results } = this.state;
     return (
-      <Wrapper>
+      <div>
         <Header />
         <SideMenu />
         {!(results && results.length > 0) ?
@@ -58,11 +55,12 @@ class Search extends Component {
             handleSearchText={this.handleSearchText}
             handleFinalSearch={this.handleFinalSearch}
             loading={this.state.loading}
+            fileSelectedHandler={this.fileSelectedHandler}
           />
           :
           <Results official={results} others={results} />
         }
-      </Wrapper>
+      </div>
     );
   }
 }

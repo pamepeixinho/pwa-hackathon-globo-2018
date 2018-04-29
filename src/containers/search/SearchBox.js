@@ -7,6 +7,7 @@ import Button from 'material-ui/Button';
 import { CircularProgress } from 'material-ui/Progress';
 import Card, { CardContent } from 'material-ui/Card';
 
+
 const Title = styled.h3`
   padding: 16px 0 0 16px;
 `;
@@ -21,6 +22,10 @@ const Wrapper = styled.div`
   width: calc(100% - 275px);
 `;
 
+const Input = styled.input`
+  width: 160px;
+`;
+
 const styles = {
   card: {
     maxWidth: 760,
@@ -31,6 +36,10 @@ const styles = {
     position: 'absolute',
     bottom: 16,
     right: 16,
+  },
+  textField: {
+    marginRight: 10,
+    width: 'calc(100% - 180px)',
   },
 };
 
@@ -52,8 +61,10 @@ class SearchBox extends Component {
               label="Insira a notícia"
               value={this.props.searchText}
               onChange={this.props.handleSearchText}
+              className={this.props.classes.textField}
               margin="normal"
             />
+            <Input type='file' onChange={this.props.fileSelectedHandler} />
             <p>Filtros adicionais</p>
             <TextField
               id="cidade"
