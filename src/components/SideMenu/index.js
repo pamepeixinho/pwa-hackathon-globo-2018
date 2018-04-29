@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const SideWrapper = styled.div`
   background-color: black;
@@ -11,12 +12,23 @@ const SideWrapper = styled.div`
 
 const Header = styled.div`
   width: 100%;
-  height: 30px;
+  height: 40px;
   background-color: rgb(66,66,66);
-  padding: 15px;
+  padding: 15px 0 0 22px;
   color: white;
+  vertical-align: center;
+  font-weight: bold;
 `;
 
+const Links = styled.div`
+  margin-left: 22px;
+  font-size: 13 px;
+`;
+
+const NoLink = styled(Link)`
+  text-decoration: none;
+  color: white;
+`;
 
 class SideMenu extends Component {
   render() {
@@ -25,6 +37,11 @@ class SideMenu extends Component {
         <Header>
           Menu Apuração
         </Header>
+        <Links>
+          <NoLink to="search"><p>Busca</p></NoLink>
+          <NoLink to="font"><p>Fonte</p></NoLink>
+          <NoLink to="mix"><p>Combinações</p></NoLink>
+        </Links>
       </SideWrapper>
     );
   }
