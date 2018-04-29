@@ -11,7 +11,6 @@ import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'rea
 import 'react-dates/lib/css/_datepicker.css';
 
 
-
 const Title = styled.h3`
   padding: 16px 0 0 16px;
 `;

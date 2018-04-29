@@ -5,7 +5,6 @@ import { withRouter } from 'react-router-dom'
 import ProductCard from '../../components/ProductCard';
 import ContentArray from './Content';
 import Header from '../../components/Header';
-import axios from 'axios';
 
 const Wrapper = styled.div`
   width: 100%;

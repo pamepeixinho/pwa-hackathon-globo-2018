@@ -39,7 +39,7 @@ class ResultBox extends Component {
               return (
                 <TableRow key={result.title}>
                   <TableCell style={{ maxWidth: 100 }}>
-                    {isImage ? <img src={result.href} alt="imgzinha" /> : result.title}
+                    {isImage ? <img style={{ width: 64, height: 64}} src={result.href} alt="imgzinha" /> : result.title}
                   </TableCell>
                   <TableCell style={{ maxWidth: 180 }}>
                     <a href={isImage ? result.backlink : result.href}>

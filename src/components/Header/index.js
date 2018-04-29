@@ -9,6 +9,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Menu, { MenuItem } from 'material-ui/Menu';
 
+import g1 from '../../g1.png';
+
 const styles = {
   root: {
     flexGrow: 1,
@@ -25,7 +27,6 @@ const styles = {
   }
 };
 
-
 class Header extends Component {
   render() {
     const { classes } = this.props;
@@ -39,7 +40,8 @@ class Header extends Component {
             <Typography variant="title" color="inherit" className={classes.flex}>
               Backstage | admin
             </Typography>
-              <div>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <img src={g1} alt="test" style={{ width: 28, height: 28 }} />
                 <IconButton
                   aria-haspopup="true"
                   color="inherit"
