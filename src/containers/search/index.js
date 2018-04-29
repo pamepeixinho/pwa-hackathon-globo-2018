@@ -4,6 +4,8 @@ import Table, { TableCell, TableRow } from 'material-ui/Table';
 
 import { search } from '../../api/search';
 import SearchBox from './SearchBox';
+import Header from '../../components/Header';
+import SideMenu from  '../../components/SideMenu';
 
 const Wrapper = styled.div`
 `;
@@ -12,6 +14,7 @@ class Search extends Component {
   state = {
     searchText: '',
     results: [],
+    loading: false,
   }
 
   handleSearchText = (event) => {
@@ -19,19 +22,22 @@ class Search extends Component {
   }
 
   handleFinalSearch = async () => {
+    this.setState({ loading: true });
     const results = await search(this.state.searchText)
-    this.setState({ results });
-    console.log(results);
+    this.setState({ results, loading: false });
   }
 
   render() {
     const { results } = this.state;
     return (
       <Wrapper>
+        <Header />
+        <SideMenu />
         <SearchBox
           searchText={this.state.searchText}
           handleSearchText={this.handleSearchText}
           handleFinalSearch={this.handleFinalSearch}
+          loading={this.state.loading}
         />
 
         <Table>
