@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom'
 import ProductCard from '../../components/ProductCard';
 import ContentArray from './Content';
 import Header from '../../components/Header';
+import axios from 'axios';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -24,11 +25,30 @@ const CardWrapper = styled.div`
 `;
 
 class Home extends Component {
+  state = {
+    selectedFile: null
+  };
+  
+  fileSelectedHandler = event => {
+    this.setState({
+      selectedFile: event.target.files[0]
+    })
+    // console.log(event.target.files[0]);
+  }
+  fileUploadHandler = () => {
+    const fd = new FormData();
+    fd.append('dataFile', this.state.selectedFile,'dataFile');
+    axios.post('https://backend-bbb.herokuapp.com/search/image', fd)
+      .then((res) => console.log(res));
+  }
   render() {
     const { history } = this.props;
     return (
       <Wrapper>
         <Header />
+        <input type='file' onChange={this.fileSelectedHandler}>
+        </input>
+        <button onClick={this.fileUploadHandler}>Upload</button>
         <CardWrapper>
           {ContentArray.map((el) =>
             <ProductCard

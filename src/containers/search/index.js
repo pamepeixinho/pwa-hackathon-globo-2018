@@ -6,12 +6,26 @@ import { search } from '../../api/search';
 import SearchBox from './SearchBox';
 import Header from '../../components/Header';
 import SideMenu from  '../../components/SideMenu';
+import axios from 'axios';
 
+const EPImage = 'https://backend-bbb.herokuapp.com/search/image';
 const Wrapper = styled.div`
 `;
 
 class Search extends Component {
+  fileSelectedHandler = event => {
+    this.setState({
+      selectedFile: event.target.files[0]
+    })
+  }
+  fileUploadHandler = () => {
+    const fd = new FormData();
+    fd.append('dataFile', this.state.selectedFile,'dataFile');
+    axios.post(EPImage, fd)
+      .then((res) => console.log(res));
+  }
   state = {
+    selectedFile: null,
     searchText: '',
     results: [],
     loading: false,
@@ -32,6 +46,9 @@ class Search extends Component {
     return (
       <Wrapper>
         <Header />
+        <input type='file' onChange={this.fileSelectedHandler}>
+        </input>
+        <button onClick={this.fileUploadHandler}>Upload</button>
         <SideMenu />
         <SearchBox
           searchText={this.state.searchText}
