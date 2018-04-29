@@ -1,23 +1,18 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
+import React from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-// import logo from './logo.svg';
+import Search from './containers/search';
+import Results from './containers/results';
 
-const Wrapper = styled.div`
-  background: blue;
-`;
-
-class App extends Component {
+class App extends React.Component {
   render() {
     return (
-      <Wrapper>
-        <header>
-          <h1>Welcome to React</h1>
-        </header>
-        <p>
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </Wrapper>
+      <Router>
+        <React.Fragment>
+          <Route exact path="/" component={Search} />
+          <Route path="/results" component={Results} />
+        </React.Fragment>
+      </Router>
     );
   }
 }
